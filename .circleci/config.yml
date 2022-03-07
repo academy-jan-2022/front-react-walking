@@ -8,7 +8,8 @@ jobs:
       - image: circleci/node:10.16.3
     working_directory: ~/front-react-walking/walking-skeleton
     steps:
-      - checkout
+      - checkout:
+          path: ~/front-react-walking
       # install dependencies
       - run:
           name: Install Dependencies
