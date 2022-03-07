@@ -6,6 +6,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10.16.3
+    working_directory: ~/walking-skeleton
     steps:
       - checkout
       # install dependencies
