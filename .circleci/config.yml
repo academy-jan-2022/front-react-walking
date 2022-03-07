@@ -27,8 +27,6 @@ workflows:
   build:
     jobs:
       - build
-  deploy:
-    jobs:      
       - heroku/deploy-via-git:
             api-key: HEROKU_API_KEY 
             force: false 
@@ -39,5 +37,6 @@ workflows:
               branches:
                 only:
                   - main
-
+            requires: 
+              - build
   
