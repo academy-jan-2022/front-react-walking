@@ -8,10 +8,8 @@ jobs:
   build:
     docker:
       - image: cimg/node:17.6.0
-    working_directory: ~/front-react-walking/walking-skeleton
     steps:
-      - checkout:
-          path: ~/front-react-walking
+      - checkout
       # install dependencies
       - run:
           name: Install Dependencies
