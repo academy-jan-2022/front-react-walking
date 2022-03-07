@@ -25,10 +25,14 @@ test('superheroes api is called', async () => {
 });
 
 test('display list of super hero names', async () => {
-    const list = {results: [
-            {name: "Bat man"},
-            {name: "Bat-man"}
-        ]}
+    const list = {
+        data:
+            {data:
+                    {results:
+                            [{name: "Bat man"}, {name: "Bat-man"}]
+                    }
+            }
+    };
 
     axios.get.mockImplementation(() => Promise.resolve(list));
     let matcher = 'https://gateway.marvel.com/v1/public/characters?apikey=cb0bf27ee604b7033dac0e8988a429ea';
