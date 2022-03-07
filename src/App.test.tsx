@@ -17,9 +17,7 @@ test('renders header', () => {
 
 test('superheroes api is called', () => {
     let matcher = 'https://gateway.marvel.com/v1/public/characters?apikey=cb0bf27ee604b7033dac0e8988a429ea';
-
     render(<App/>);
-
     expect(axios.get).toHaveBeenCalledWith(matcher);
 });
 
