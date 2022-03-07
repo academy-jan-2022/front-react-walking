@@ -24,3 +24,21 @@ test('superheroes api is called', async () => {
     expect(axios.get).toHaveBeenCalledWith(matcher);
 });
 
+test('display list of super hero names', async () => {
+    const list = {results: [
+            {name: "Bat man"},
+            {name: "Bat-man"}
+        ]}
+
+    axios.get.mockImplementation(() => Promise.resolve(list));
+    let matcher = 'https://gateway.marvel.com/v1/public/characters?apikey=cb0bf27ee604b7033dac0e8988a429ea';
+    await act(async () => {
+        await render(<App/>);
+    });
+
+    const heroesList = screen.getByRole('list');
+
+    expect(heroesList).toHaveTextContent('Bat man');
+    expect(heroesList).toHaveTextContent('Bat-man');
+});
+
