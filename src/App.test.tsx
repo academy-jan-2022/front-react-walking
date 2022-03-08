@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, render, screen } from '@testing-library/react';
+import {act, render, screen} from '@testing-library/react';
 import App from './App';
 
 const axios = require('axios');
@@ -15,7 +15,19 @@ beforeEach(async () => {
                 data:
                     {
                         results:
-                            [{ name: "Bat man" }, { name: "Bat-man" }]
+                            [{
+                                name: "Batman",
+                                thumbnail: {
+                                    path: "pictureurl",
+                                    extension: "jpg"
+                                },
+                            }, {
+                                name: "Batman",
+                                thumbnail: {
+                                    path: "pictureurl",
+                                    extension: "jpg"
+                                },
+                            }]
                     }
             }
     };
@@ -28,10 +40,8 @@ beforeEach(async () => {
 
 
 test('renders header', () => {
-    const heading = screen.getByRole('heading');
-
-    expect(heading).toBeInTheDocument();
-    expect(heading).toHaveTextContent('Superheroes');
+    const heading = screen.getByRole('title');
+    expect(heading).toHaveTextContent('Avengers');
 });
 
 
@@ -42,7 +52,29 @@ test('superheroes api is called', async () => {
 test('display list of super hero names', async () => {
     const heroesList = screen.getByRole('list');
 
-    expect(heroesList).toHaveTextContent('Bat man');
-    expect(heroesList).toHaveTextContent('Bat-man');
+    expect(heroesList).toHaveTextContent('Batman');
 });
+
+test('display button inside list item', async () => {
+    const buttons = screen.getAllByRole('button');
+
+    expect(buttons.length).toBe(2);
+    buttons.forEach(button => expect(button).toHaveTextContent("more info"))
+});
+
+test('display image inside list item', async () => {
+    const images = screen.getAllByRole('img');
+
+    expect(images.length).toBe(2);
+    images.forEach(image => expect(image).toHaveAttribute('src','pictureurl.jpg'))
+});
+
+
+test('link should have correct reference', async () => {
+    const aTags = screen.getAllByRole('link');
+
+    expect(aTags.length).toBe(2);
+    aTags.forEach(aTag => expect(aTag).toHaveAttribute('href','/batman'))
+});
+
 
