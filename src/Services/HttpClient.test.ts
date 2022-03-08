@@ -17,9 +17,9 @@ interface MyResult {
 }
 
 test('url is called', async () => {
-    const result = await httpClient.get<MyResult>(matcher);
-    expect(result).toEqual({ name: "banana" });
+    const result = await httpClient.get<MyResult>({ url: matcher });
 
+    expect(result).toEqual({ name: "banana" });
     expect(axios.get).toHaveBeenCalledWith(matcher);
 });
 
