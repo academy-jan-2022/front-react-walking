@@ -3,8 +3,8 @@ const axios = require('axios');
 
 jest.mock("axios");
 
-
-let matcher = 'https://some.url.com';
+const url = 'https://some.url.com'
+let matcher = `${url}/?foo=bar&baz=meh`;
 const httpClient = new HttpClient();
 
 beforeEach(async () => {
@@ -17,7 +17,15 @@ interface MyResult {
 }
 
 test('url is called', async () => {
-    const result = await httpClient.get<MyResult>({ url: matcher });
+    const result = await httpClient.get<MyResult>(
+        {
+            url: url,
+            queryParams: {
+                foo: 'bar',
+                baz: 'meh'
+            }
+        }
+    );
 
     expect(result).toEqual({ name: "banana" });
     expect(axios.get).toHaveBeenCalledWith(matcher);

@@ -2,11 +2,16 @@ import axios, { AxiosResponse } from "axios";
 
 export class HttpClient {
     async get<T>(request: GetRequest): Promise<T> {
-        const response: AxiosResponse<T> = await axios.get(request.url);
+        let url = new URL(request.url);
+        for (let key in request.queryParams) {
+            url.searchParams.append(key, request.queryParams[key]);
+        }
+        const response: AxiosResponse<T> = await axios.get(url.toString());
         return response.data;
     }
 }
 
 export interface GetRequest {
     url: string;
+    readonly queryParams: { [name: string]: string };
 }
