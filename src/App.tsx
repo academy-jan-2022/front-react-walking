@@ -3,13 +3,14 @@ import './App.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-type Hero = {
+export type Hero = {
     name: string
     thumbnail: {
         path: string,
         extension: string
     }
     id: number
+    description: string
 }
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('https://gateway.marvel.com/v1/public/characters?apikey=cb0bf27ee604b7033dac0e8988a429ea')
+        axios.get('https://gateway.marvel.com/v1/public/characters?series=24229&apikey=cb0bf27ee604b7033dac0e8988a429ea')
             .then(({data}) => setHeroes(data.data.results));
     }, []);
 

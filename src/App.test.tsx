@@ -6,7 +6,7 @@ const axios = require('axios');
 
 jest.mock("axios");
 
-let matcher = 'https://gateway.marvel.com/v1/public/characters?apikey=cb0bf27ee604b7033dac0e8988a429ea';
+let matcher = 'https://gateway.marvel.com/v1/public/characters?series=24229&apikey=cb0bf27ee604b7033dac0e8988a429ea';
 const mockedUsedNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({

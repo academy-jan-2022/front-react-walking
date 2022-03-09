@@ -23,6 +23,7 @@ beforeEach(async () => {
                                     path: "pictureurl",
                                     extension: "jpg"
                                 },
+                                description: "I AM BATMAN"
                             }]
                     }
             }
@@ -40,3 +41,7 @@ test('renders header', () => {
     expect(heading).toHaveTextContent('Batman');
 });
 
+test('renders description', () => {
+    const heading = screen.getByRole('article', {name: 'description'});
+    expect(heading).toHaveTextContent('I AM BATMAN');
+});
