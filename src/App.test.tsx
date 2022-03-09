@@ -40,7 +40,7 @@ beforeEach(async () => {
 
 
 test('renders header', () => {
-    const heading = screen.getByRole('title');
+    const heading = screen.getByRole('heading',{name: 'title'});
     expect(heading).toHaveTextContent('Avengers');
 });
 

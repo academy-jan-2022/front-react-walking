@@ -22,7 +22,7 @@ function App() {
     return (
         <>
             <header>
-                <h1 role='title'>Avengers</h1>
+                <h1 aria-label='title'>Avengers</h1>
             </header>
             <ul>
                 {
@@ -31,7 +31,7 @@ function App() {
 
                         return <li key={hero.name}>
                             <div className='li-image-container'>
-                                <img src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}/>
+                                <img src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`} alt='superheroImage'/>
                             </div>
                             <div>
                                 <h2>{hero.name}</h2>
