@@ -22,7 +22,7 @@ beforeEach(async () => {
                                     extension: "jpg"
                                 },
                             }, {
-                                name: "Batman",
+                                name: "batman",
                                 thumbnail: {
                                     path: "pictureurl",
                                     extension: "jpg"
