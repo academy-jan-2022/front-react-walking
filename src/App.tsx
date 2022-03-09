@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 type Hero = {
     name: string
@@ -9,10 +9,12 @@ type Hero = {
         path: string,
         extension: string
     }
+    id: number
 }
 
 function App() {
     const [heroes, setHeroes] = useState<Array<Hero>>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('https://gateway.marvel.com/v1/public/characters?apikey=cb0bf27ee604b7033dac0e8988a429ea')
@@ -27,7 +29,7 @@ function App() {
             <ul>
                 {
                     heroes.map(hero => {
-                        const generatePageHref = (name: string) => '/' + name.toLowerCase();
+                        const generatePageHref = (name: string) => '/' + name.split(' ').join('-').toLowerCase();
 
                         return <li key={hero.name}>
                             <div className='li-image-container'>
@@ -35,9 +37,7 @@ function App() {
                             </div>
                             <div>
                                 <h2>{hero.name}</h2>
-                                <a href={generatePageHref(hero.name)}>
-                                    <button>more info</button>
-                                </a>
+                                <button onClick={() => navigate('/batman')}>more info</button>
                             </div>
                         </li>
                     })

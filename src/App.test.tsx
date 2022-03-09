@@ -7,6 +7,12 @@ const axios = require('axios');
 jest.mock("axios");
 
 let matcher = 'https://gateway.marvel.com/v1/public/characters?apikey=cb0bf27ee604b7033dac0e8988a429ea';
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom') as any,
+    useNavigate: () => mockedUsedNavigate,
+}));
 
 beforeEach(async () => {
     const list = {
@@ -69,12 +75,12 @@ test('display image inside list item', async () => {
     images.forEach(image => expect(image).toHaveAttribute('src','pictureurl.jpg'))
 });
 
-
-test('link should have correct reference', async () => {
-    const aTags = screen.getAllByRole('link');
-
-    expect(aTags.length).toBe(2);
-    aTags.forEach(aTag => expect(aTag).toHaveAttribute('href','/batman'))
+test('move to hero page when clicking more info button',  () => {
+    delete (window as any).location;
+    (window as any).location = { assign: jest.fn() }
+    const buttons = screen.getAllByRole('button');
+    buttons[0].click();
+    expect(mockedUsedNavigate).toBeCalledWith('/batman');
 });
 
 
