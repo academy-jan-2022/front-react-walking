@@ -82,7 +82,7 @@ test('move to batman when clicking more info button',  () => {
     (window as any).location = { assign: jest.fn() }
     const buttons = screen.getAllByRole('button');
     buttons[0].click();
-    expect(mockedUsedNavigate).toBeCalledWith('/batman',{'state': 1});
+    expect(mockedUsedNavigate).toBeCalledWith('/1');
 });
 
 test('move to spiderman when clicking more info button',  () => {
@@ -90,7 +90,7 @@ test('move to spiderman when clicking more info button',  () => {
     (window as any).location = { assign: jest.fn() }
     const buttons = screen.getAllByRole('button');
     buttons[1].click();
-    expect(mockedUsedNavigate).toBeCalledWith('/spiderman', {'state': 2});
+    expect(mockedUsedNavigate).toBeCalledWith('/2');
 });
 
 

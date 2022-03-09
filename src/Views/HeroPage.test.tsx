@@ -32,5 +32,11 @@ beforeEach(async () => {
     await act(async () => {
         await render(<HeroPage/>);
     });
+
 })
+
+test('renders header', () => {
+    const heading = screen.getByRole('heading', {name: 'title'});
+    expect(heading).toHaveTextContent('Batman');
+});
 
