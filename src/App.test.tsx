@@ -22,12 +22,14 @@ beforeEach(async () => {
                     {
                         results:
                             [{
+                                id: 1,
                                 name: "Batman",
                                 thumbnail: {
                                     path: "pictureurl",
                                     extension: "jpg"
                                 },
                             }, {
+                                id: 2,
                                 name: "spiderman",
                                 thumbnail: {
                                     path: "pictureurl",
@@ -80,7 +82,7 @@ test('move to batman when clicking more info button',  () => {
     (window as any).location = { assign: jest.fn() }
     const buttons = screen.getAllByRole('button');
     buttons[0].click();
-    expect(mockedUsedNavigate).toBeCalledWith('/batman');
+    expect(mockedUsedNavigate).toBeCalledWith('/batman',{'state': 1});
 });
 
 test('move to spiderman when clicking more info button',  () => {
@@ -88,7 +90,7 @@ test('move to spiderman when clicking more info button',  () => {
     (window as any).location = { assign: jest.fn() }
     const buttons = screen.getAllByRole('button');
     buttons[1].click();
-    expect(mockedUsedNavigate).toBeCalledWith('/spiderman');
+    expect(mockedUsedNavigate).toBeCalledWith('/spiderman', {'state': 2});
 });
 
 

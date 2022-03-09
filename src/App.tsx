@@ -29,10 +29,10 @@ function App() {
             <ul>
                 {
                     heroes.map(hero => {
-                        const moveToHeroPage = (name: string) =>
+                        const moveToHeroPage = (name: string, id: number) =>
                         {
                             const link = '/' + name.split(' ').join('-').toLowerCase()
-                            navigate(link)
+                            navigate(link, {state: id})
                         };
 
                         return <li key={hero.name}>
@@ -41,7 +41,7 @@ function App() {
                             </div>
                             <div>
                                 <h2>{hero.name}</h2>
-                                <button onClick={() => moveToHeroPage(hero.name)}>more info</button>
+                                <button onClick={() => moveToHeroPage(hero.name, hero.id)}>more info</button>
                             </div>
                         </li>
                     })
