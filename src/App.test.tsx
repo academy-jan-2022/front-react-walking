@@ -28,7 +28,7 @@ beforeEach(async () => {
                                     extension: "jpg"
                                 },
                             }, {
-                                name: "batman",
+                                name: "spiderman",
                                 thumbnail: {
                                     path: "pictureurl",
                                     extension: "jpg"
@@ -75,12 +75,20 @@ test('display image inside list item', async () => {
     images.forEach(image => expect(image).toHaveAttribute('src','pictureurl.jpg'))
 });
 
-test('move to hero page when clicking more info button',  () => {
+test('move to batman when clicking more info button',  () => {
     delete (window as any).location;
     (window as any).location = { assign: jest.fn() }
     const buttons = screen.getAllByRole('button');
     buttons[0].click();
     expect(mockedUsedNavigate).toBeCalledWith('/batman');
+});
+
+test('move to spiderman when clicking more info button',  () => {
+    delete (window as any).location;
+    (window as any).location = { assign: jest.fn() }
+    const buttons = screen.getAllByRole('button');
+    buttons[1].click();
+    expect(mockedUsedNavigate).toBeCalledWith('/spiderman');
 });
 
 

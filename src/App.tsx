@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {MouseEventHandler, useEffect, useState} from 'react';
 import './App.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +29,11 @@ function App() {
             <ul>
                 {
                     heroes.map(hero => {
-                        const generatePageHref = (name: string) => '/' + name.split(' ').join('-').toLowerCase();
+                        const moveToHeroPage = (name: string) =>
+                        {
+                            const link = '/' + name.split(' ').join('-').toLowerCase()
+                            navigate(link)
+                        };
 
                         return <li key={hero.name}>
                             <div className='li-image-container'>
@@ -37,7 +41,7 @@ function App() {
                             </div>
                             <div>
                                 <h2>{hero.name}</h2>
-                                <button onClick={() => navigate('/batman')}>more info</button>
+                                <button onClick={() => moveToHeroPage(hero.name)}>more info</button>
                             </div>
                         </li>
                     })
