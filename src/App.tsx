@@ -5,6 +5,10 @@ import axios from "axios";
 
 type Hero = {
     name: string
+    thumbnail: {
+        path: string,
+        extension: string
+    }
 }
 
 function App() {
@@ -12,23 +16,35 @@ function App() {
 
     useEffect(() => {
         axios.get('https://gateway.marvel.com/v1/public/characters?apikey=cb0bf27ee604b7033dac0e8988a429ea')
-            .then(({ data }) => setHeroes(data.data.results));
+            .then(({data}) => setHeroes(data.data.results));
     }, []);
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Superheroes</h1>
-          <ul>
-              {
-                heroes.map(hero => {
-                    return <li key={hero.name}>{hero.name}</li>
-                })
-              }
-          </ul>
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <header>
+                <h1 aria-label='title'>Avengers</h1>
+            </header>
+            <ul>
+                {
+                    heroes.map(hero => {
+                        const generatePageHref = (name: string) => '/' + name.toLowerCase();
+
+                        return <li key={hero.name}>
+                            <div className='li-image-container'>
+                                <img src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`} alt='superheroImage'/>
+                            </div>
+                            <div>
+                                <h2>{hero.name}</h2>
+                                <a href={generatePageHref(hero.name)}>
+                                    <button>more info</button>
+                                </a>
+                            </div>
+                        </li>
+                    })
+                }
+            </ul>
+        </>
+    );
 }
 
 export default App;
