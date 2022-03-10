@@ -86,8 +86,6 @@ test('move to batman when clicking more info button',  () => {
 });
 
 test('move to spiderman when clicking more info button',  () => {
-    delete (window as any).location;
-    (window as any).location = { assign: jest.fn() }
     const buttons = screen.getAllByRole('button');
     buttons[1].click();
     expect(mockedUsedNavigate).toBeCalledWith('/2');

@@ -38,7 +38,7 @@ function App() {
 
                         return <li key={hero.name}>
                             <div className='li-image-container'>
-                                <img src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`} alt='superheroImage'/>
+                                <img src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`} alt={hero.name}/>
                             </div>
                             <div>
                                 <h2>{hero.name}</h2>

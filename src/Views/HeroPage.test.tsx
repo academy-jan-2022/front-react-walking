@@ -45,3 +45,10 @@ test('renders description', () => {
     const heading = screen.getByRole('article', {name: 'description'});
     expect(heading).toHaveTextContent('I AM BATMAN');
 });
+
+
+test('render image', async () => {
+    const image = screen.getByRole('img');
+
+    expect(image).toHaveAttribute('src','pictureurl.jpg')
+});

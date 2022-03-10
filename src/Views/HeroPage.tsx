@@ -1,26 +1,33 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
-import {Hero} from "../App"
+import {useDispatch} from 'react-redux';
+import {Hero} from "../App";
+import {store} from "../index";
+import {fetchHeroAsync} from "../HeroSlice";
 
 
+const HeroPage: React.FC = () => {
 
-const HeroPage: React.FC  = () => {
 
-    const [hero, setHero] = useState<Hero|null>(null);
+    const dispatch = useDispatch<typeof store.dispatch>();
+
+    const [hero, setHero] = useState<Hero | null>(null);
 
     useEffect(() => {
-        const heroId: string = window.location.pathname
-        axios.get(`https://gateway.marvel.com/v1/public/characters/${heroId}?apikey=cb0bf27ee604b7033dac0e8988a429ea`)
-            .then(({data}) => setHero(data.data.results[0]));
-    }, []);
+        const heroId: number = Number.parseInt(window.location.pathname.substring(1))
+        const fetchHero = async () => {
+            let payload = await dispatch(fetchHeroAsync(heroId)).unwrap();
+            setHero(payload)
+        }
+        fetchHero();
+    }, [dispatch]);
 
     return (
         <div>
             {hero && <>
                 <h1 aria-label="title">{hero.name}</h1>
                 <p role="article" aria-label="description">{hero.description}</p>
-
-            </> }
+                <img src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`} alt={hero.name}/>
+            </>}
         </div>
     )
 }
