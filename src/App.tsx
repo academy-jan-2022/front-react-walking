@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {getCachedResult, setCachedResult} from "./Services/HeroCache";
+import HttpClient from "./Services/HttpClient";
 
 export type Hero = {
     name: string
@@ -15,15 +17,56 @@ export type Hero = {
 
 function App() {
     const [heroes, setHeroes] = useState<Array<Hero>>([]);
+    const [page, setPage] = useState(1);
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('https://gateway.marvel.com/v1/public/characters?series=24229&apikey=cb0bf27ee604b7033dac0e8988a429ea')
-            .then(({data}) => setHeroes(data.data.results));
+        const cachedResult = getCachedResult(0);
+
+        if (cachedResult) {
+            setHeroes(cachedResult);
+        } else {
+            HttpClient.get({url: 'https://gateway.marvel.com/v1/public/characters', queryParams: {
+                    apikey: 'cb0bf27ee604b7033dac0e8988a429ea',
+                    limit: '10'
+                }})
+                .then((data: any) => {
+                    setHeroes(data.data.results)
+                    setCachedResult("0", data.data.results);
+                })
+        }
     }, []);
 
+    const fetchNextPage = () => {
+        const cachedResult = getCachedResult(page);
+        if (cachedResult) {
+            setHeroes(cachedResult);
+        } else {
+            HttpClient.get({url: 'https://gateway.marvel.com/v1/public/characters', queryParams: {
+                    apikey: 'cb0bf27ee604b7033dac0e8988a429ea',
+                    offset: (page * 10).toString(),
+                    limit: '10'
+                }})
+                .then((data: any) => {
+                    setHeroes(data.data.results)
+                    setCachedResult(page.toString(), data.data.results);
+                })
+        }
+        setPage(page + 1);
+        window.scrollTo(0, 0);
+    }
+
+    const fetchPrevPage = () => {
+        const cachedResult = getCachedResult(page - 2);
+        if (cachedResult) {
+            setHeroes(cachedResult);
+        }
+        setPage(page - 1);
+        window.scrollTo(0, 0);
+    }
+
     return (
-        <>
+        <div>
             <header>
                 <h1 aria-label='title'>Avengers</h1>
             </header>
@@ -48,7 +91,11 @@ function App() {
                     })
                 }
             </ul>
-        </>
+            <div>
+                {page > 1 && <button onClick={fetchPrevPage}>Prev</button>}
+                <button onClick={fetchNextPage}>Next</button>
+            </div>
+        </div>
     );
 }
 

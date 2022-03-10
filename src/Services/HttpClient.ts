@@ -15,3 +15,7 @@ export interface GetRequest {
     url: string;
     readonly queryParams: { [name: string]: string };
 }
+
+const client = new HttpClient();
+
+export default client;
