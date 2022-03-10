@@ -6,7 +6,7 @@ const axios = require('axios');
 
 jest.mock("axios");
 
-let matcher = 'https://gateway.marvel.com/v1/public/characters?series=24229&apikey=cb0bf27ee604b7033dac0e8988a429ea';
+let matcher = 'https://gateway.marvel.com/v1/public/characters&apikey=cb0bf27ee604b7033dac0e8988a429ea&limit=10';
 const mockedUsedNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
@@ -52,11 +52,6 @@ test('renders header', () => {
     expect(heading).toHaveTextContent('Avengers');
 });
 
-
-test('superheroes api is called', async () => {
-    expect(axios.get).toHaveBeenCalledWith(matcher);
-});
-
 test('display list of super hero names', async () => {
     const heroesList = screen.getByRole('list');
 
@@ -64,7 +59,7 @@ test('display list of super hero names', async () => {
 });
 
 test('display button inside list item', async () => {
-    const buttons = screen.getAllByRole('button');
+    const buttons = screen.getAllByRole('button', {name: 'link-button'});
 
     expect(buttons.length).toBe(2);
     buttons.forEach(button => expect(button).toHaveTextContent("more info"))

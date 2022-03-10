@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {getCachedResult, setCachedResult} from "./Services/HeroCache";
 import HttpClient from "./Services/HttpClient";
@@ -85,7 +84,7 @@ function App() {
                             </div>
                             <div>
                                 <h2>{hero.name}</h2>
-                                <button onClick={() => moveToHeroPage(hero.id)}>more info</button>
+                                <button aria-label='link-button' onClick={() => moveToHeroPage(hero.id)}>more info</button>
                             </div>
                         </li>
                     })
