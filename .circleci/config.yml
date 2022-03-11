@@ -17,7 +17,8 @@ jobs:
       - run:
           name: Build app
           command: npm run build
-      - sonarcloud/scan
+      - sonarcloud/scan:
+          sonar_token_variable_name: SONAR_TOKEN
   build:
     docker:
       - image: cimg/node:17.6.0
@@ -37,8 +38,7 @@ jobs:
 workflows:
   code-analysis:
     jobs:
-      - code-analysis:
-          context: SonarCloud
+      - code-analysis
   build:
     jobs:
       - build
