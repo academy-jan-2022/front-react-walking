@@ -3,8 +3,15 @@
 version: 2.1
 orbs:
   heroku: circleci/heroku@1.2.6
+  sonarcloud: sonarsource/sonarcloud@1.0.3
 
 jobs:
+  code-analysis:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - sonarcloud/scan:
+          sonar_token_variable_name: SONAR_TOKEN 
   build:
     docker:
       - image: cimg/node:17.6.0
@@ -22,6 +29,9 @@ jobs:
           command: npm run build
   
 workflows:
+  code-analysis:
+    jobs:
+      - code-analysis
   build:
     jobs:
       - build
