@@ -36,7 +36,9 @@ function App() {
         }
     }, []);
 
-    const fetchNextPage = () => {
+    function fetchNextPage(){
+        let args = Array.prototype.slice.call(arguments)
+        console.log(args);
         const cachedResult = getCachedResult(page);
         if (cachedResult) {
             setHeroes(cachedResult);
