@@ -6,19 +6,6 @@ orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.3
 
 jobs:
-  code-analysis:
-    docker:
-      - image: cimg/node:17.6.0
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: npm install
-      - run:
-          name: Build app
-          command: npm run build
-      - sonarcloud/scan:
-          sonar_token_variable_name: SONAR_TOKEN
   build:
     docker:
       - image: cimg/node:17.6.0
@@ -30,15 +17,14 @@ jobs:
           command: npm install
       - run:
           name: Run tests
-          command: npm run test
+          command: npm run test -- --coverage
       - run:
           name: Build app
           command: npm run build
+      - sonarcloud/scan:
+          sonar_token_variable_name: SONAR_TOKEN
 
 workflows:
-  code-analysis:
-    jobs:
-      - code-analysis
   build:
     jobs:
       - build
