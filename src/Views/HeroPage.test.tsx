@@ -1,7 +1,6 @@
 import React from 'react';
 import HeroPage from './HeroPage';
 import {act, render, screen} from '@testing-library/react';
-import App from "../App";
 
 const axios = require('axios');
 
@@ -31,7 +30,7 @@ beforeEach(async () => {
 
     axios.get.mockImplementation(() => Promise.resolve(list));
     await act(async () => {
-        await render(<HeroPage/>);
+        render(<HeroPage/>);
     });
 
 })

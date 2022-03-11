@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Hero} from "../App"
 
-
-
 const HeroPage: React.FC  = () => {
 
     const [hero, setHero] = useState<Hero|null>(null);
