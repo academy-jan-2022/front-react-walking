@@ -10,7 +10,7 @@ let matcher = 'https://gateway.marvel.com/v1/public/characters&apikey=cb0bf27ee6
 const mockedUsedNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom') as any,
+    ...jest.requireActual('react-router-dom'),
     useNavigate: () => mockedUsedNavigate,
 }));
 
@@ -42,7 +42,7 @@ beforeEach(async () => {
 
     axios.get.mockImplementation(() => Promise.resolve(list));
     await act(async () => {
-        await render(<App/>);
+        render(<App/>);
     });
 })
 
