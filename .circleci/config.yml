@@ -3,8 +3,21 @@
 version: 2.1
 orbs:
   heroku: circleci/heroku@1.2.6
+  sonarcloud: sonarsource/sonarcloud@1.0.3
 
 jobs:
+  code-analysis:
+    docker:
+      - image: cimg/node:17.6.0
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Build app
+          command: npm run build
+      - sonarcloud/scan
   build:
     docker:
       - image: cimg/node:17.6.0
@@ -20,21 +33,25 @@ jobs:
       - run:
           name: Build app
           command: npm run build
-  
+
 workflows:
+  code-analysis:
+    jobs:
+      - code-analysis:
+          context: SonarCloud
   build:
     jobs:
       - build
       - heroku/deploy-via-git:
-            api-key: HEROKU_API_KEY 
-            force: false 
-            maintenance-mode: false 
-            app-name: front-react-walking 
-            branch: main
-            filters:
-              branches:
-                only:
-                  - main
-            requires: 
-              - build
+          api-key: HEROKU_API_KEY
+          force: false
+          maintenance-mode: false
+          app-name: front-react-walking
+          branch: main
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - build
   
