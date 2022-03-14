@@ -18,8 +18,12 @@ Given('I am on the homepage', async function () {
 });
 
 
-Given('Heroes are shown with event', function () {
+Given('Heroes with events will show an event button', function () {
+
     // Write code here that turns the phrase above into concrete actions
+
+
+
     return 'pending';
 });
 

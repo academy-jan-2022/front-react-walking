@@ -3,6 +3,6 @@ Feature: Hero events
 
   Scenario: Hero has event
     Given I am on the homepage
-    And Heroes are shown with event
+    And Heroes with events will show an event button
     When I click the event button
     Then I am directed to an events page
