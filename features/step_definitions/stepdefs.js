@@ -1,9 +1,18 @@
-const assert = require('assert');
-const {Given, When, Then} = require('@cucumber/cucumber');
+const { Given, When, Then, AfterAll } = require('@cucumber/cucumber');
+const { Builder, By, Capabilities, Key } = require('selenium-webdriver');
 
-Given('I am on the homepage', function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'pending';
+require("chromedriver");
+
+// driver setup
+const capabilities = Capabilities.chrome();
+capabilities.set('chromeOptions', { "w3c": false });
+const driver = new Builder().withCapabilities(capabilities).build();
+
+
+Given('I am on the homepage', async function () {
+    await driver.get('http://localhost:3000');
+
+    return 'on homepage'
 });
 
 
